@@ -1,0 +1,6 @@
+/LendicGuard.txt
+  Profile-Title: LendicWhite✨
+  Content-Disposition: attachment; filename="LendicVPN"
+  Profile-Update-Interval: 1
+  Subscription-Userinfo: upload=0; download=0; expire=0
+  Access-Control-Allow-Origin: *
