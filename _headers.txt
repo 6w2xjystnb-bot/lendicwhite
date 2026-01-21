@@ -1,4 +1,4 @@
-/LendicGuard
+/LendicGuard.txt
   Profile-Title: LendicWhite✨
   Content-Disposition: attachment; filename="LendicVPN"
   Profile-Update-Interval: 1
