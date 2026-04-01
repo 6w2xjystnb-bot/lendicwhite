@@ -1,0 +1,356 @@
+{
+  "api" : {
+    "listen" : "127.0.0.1:10085",
+    "services" : [
+      "HandlerService"
+    ],
+    "tag" : "api"
+  },
+  "dns" : {
+    "queryStrategy" : "UseIPv4",
+    "servers" : [
+      "8.8.8.8",
+      "1.1.1.1"
+    ]
+  },
+  "inbounds" : [
+    {
+      "listen" : "127.0.0.1",
+      "port" : 10808,
+      "protocol" : "socks",
+      "settings" : {
+        "auth" : "noauth",
+        "udp" : true
+      },
+      "sniffing" : {
+        "destOverride" : [
+          "tls",
+          "http",
+          "quic"
+        ],
+        "enabled" : true,
+        "excludedDomains" : [
+
+        ],
+        "metadataOnly" : false,
+        "routeOnly" : true
+      },
+      "tag" : "socks-in"
+    },
+    {
+      "listen" : "127.0.0.1",
+      "port" : 10809,
+      "protocol" : "http",
+      "settings" : {
+        "auth" : "noauth",
+        "udp" : true
+      },
+      "sniffing" : {
+        "destOverride" : [
+          "tls",
+          "http",
+          "quic"
+        ],
+        "enabled" : true,
+        "excludedDomains" : [
+
+        ],
+        "metadataOnly" : false,
+        "routeOnly" : true
+      },
+      "tag" : "http"
+    },
+    {
+      "listen" : "127.0.0.1",
+      "port" : 10820,
+      "protocol" : "socks",
+      "settings" : {
+        "auth" : "noauth",
+        "udp" : true
+      },
+      "sniffing" : {
+        "destOverride" : [
+          "tls",
+          "http",
+          "quic"
+        ],
+        "enabled" : true,
+        "excludedDomains" : [
+
+        ],
+        "metadataOnly" : false,
+        "routeOnly" : true
+      },
+      "tag" : "socks-direct"
+    }
+  ],
+  "log" : {
+    "access" : "\/private\/var\/mobile\/Containers\/Shared\/AppGroup\/C42B8E9D-DFCD-4A6B-86F4-106DD8FBDB76\/Library\/Application Support\/Xray\/logs\/access.log",
+    "dnsLog" : true,
+    "loglevel" : "Warning"
+  },
+  "observatory" : {
+    "enableConcurrency" : true,
+    "probeInterval" : "10s",
+    "probeUrl" : "https:\/\/www.gstatic.com\/generate_204",
+    "subjectSelector" : [
+      "proxy-"
+    ]
+  },
+  "outbounds" : [
+    {
+      "protocol" : "hysteria",
+      "settings" : {
+        "address" : "217.16.28.48",
+        "port" : 4444,
+        "version" : 2
+      },
+      "streamSettings" : {
+        "hysteriaSettings" : {
+          "auth" : "9d6a482b65a8eabaab75d766abb5a94d",
+          "version" : 2
+        },
+        "network" : "hysteria",
+        "security" : "tls",
+        "tlsSettings" : {
+          "allowInsecure" : false,
+          "alpn" : [
+            "h3"
+          ],
+          "serverName" : "lendicv2.duckdns.org"
+        }
+      },
+      "tag" : "proxy-hy2-fast"
+    },
+    {
+      "protocol" : "hysteria",
+      "settings" : {
+        "address" : "217.16.28.48",
+        "port" : 20200,
+        "version" : 2
+      },
+      "streamSettings" : {
+        "hysteriaSettings" : {
+          "auth" : "9d6a482b65a8eabaab75d766abb5a94d",
+          "udphop" : {
+            "interval" : 30,
+            "port" : "20200-20300"
+          },
+          "version" : 2
+        },
+        "network" : "hysteria",
+        "security" : "tls",
+        "tlsSettings" : {
+          "allowInsecure" : false,
+          "alpn" : [
+            "h3"
+          ],
+          "serverName" : "lendicv2.duckdns.org"
+        }
+      },
+      "tag" : "proxy-hy2-hop"
+    },
+    {
+      "protocol" : "shadowsocks",
+      "settings" : {
+        "servers" : [
+          {
+            "address" : "217.16.28.48",
+            "level" : 0,
+            "method" : "2022-blake3-aes-128-gcm",
+            "password" : "EfUlN4nWqz2DLJerknmvUNspgDSkH5egLkbazNmZpuQ=",
+            "port" : 11443,
+            "uot" : false
+          }
+        ]
+      },
+      "streamSettings" : {
+        "network" : "tcp",
+        "security" : "none"
+      },
+      "tag" : "proxy-ss2022"
+    },
+    {
+      "protocol" : "vless",
+      "settings" : {
+        "vnext" : [
+          {
+            "address" : "217.16.28.48",
+            "port" : 10443,
+            "users" : [
+              {
+                "encryption" : "none",
+                "flow" : "xtls-rprx-vision",
+                "id" : "30394fe8-361d-4709-936e-677b4bceab68",
+                "level" : 8,
+                "security" : "auto"
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings" : {
+        "network" : "tcp",
+        "realitySettings" : {
+          "fingerprint" : "chrome",
+          "publicKey" : "kli4TT5dsZU1DKjMHpCUYjW23PGJb_9wM-va43y5ums",
+          "serverName" : "vk.com",
+          "shortId" : "0adab656",
+          "show" : false,
+          "spiderX" : ""
+        },
+        "security" : "reality"
+      },
+      "tag" : "proxy-vless-reality-vk"
+    },
+    {
+      "protocol" : "vless",
+      "settings" : {
+        "vnext" : [
+          {
+            "address" : "217.16.28.48",
+            "port" : 10446,
+            "users" : [
+              {
+                "encryption" : "none",
+                "id" : "30394fe8-361d-4709-936e-677b4bceab68",
+                "level" : 8,
+                "security" : "auto"
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings" : {
+        "network" : "xhttp",
+        "realitySettings" : {
+          "fingerprint" : "chrome",
+          "publicKey" : "kli4TT5dsZU1DKjMHpCUYjW23PGJb_9wM-va43y5ums",
+          "serverName" : "vkvideo.ru",
+          "shortId" : "0adab656",
+          "show" : false,
+          "spiderX" : ""
+        },
+        "security" : "reality",
+        "xHTTPSettings" : {
+          "host" : "",
+          "mode" : "packet-up",
+          "path" : "\/api\/v1\/update"
+        }
+      },
+      "tag" : "proxy-vless-xhttp"
+    },
+    {
+      "protocol" : "vless",
+      "settings" : {
+        "vnext" : [
+          {
+            "address" : "217.16.28.48",
+            "port" : 10445,
+            "users" : [
+              {
+                "encryption" : "none",
+                "flow" : "xtls-rprx-vision",
+                "id" : "30394fe8-361d-4709-936e-677b4bceab68",
+                "level" : 8,
+                "security" : "auto"
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings" : {
+        "network" : "tcp",
+        "realitySettings" : {
+          "fingerprint" : "safari",
+          "publicKey" : "kli4TT5dsZU1DKjMHpCUYjW23PGJb_9wM-va43y5ums",
+          "serverName" : "max.ru",
+          "shortId" : "0adab656",
+          "show" : false,
+          "spiderX" : ""
+        },
+        "security" : "reality"
+      },
+      "tag" : "proxy-vless-reality-max"
+    },
+    {
+      "protocol" : "socks",
+      "settings" : {
+        "servers" : [
+          {
+            "address" : "217.16.28.48",
+            "port" : 10801,
+            "users" : [
+              {
+                "level" : 0,
+                "pass" : "pass123",
+                "user" : "user"
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings" : {
+        "network" : "tcp",
+        "security" : "none"
+      },
+      "tag" : "proxy-socks5"
+    },
+    {
+      "protocol" : "freedom",
+      "tag" : "direct"
+    },
+    {
+      "protocol" : "blackhole",
+      "tag" : "block"
+    }
+  ],
+  "policy" : {
+    "levels" : {
+      "8" : {
+        "bufferSize" : 3,
+        "connIdle" : 300,
+        "downlinkOnly" : 4,
+        "handshake" : 3,
+        "uplinkOnly" : 2
+      }
+    },
+    "system" : {
+      "statsInboundDownlink" : false,
+      "statsInboundUplink" : false,
+      "statsOutboundDownlink" : false,
+      "statsOutboundUplink" : false
+    }
+  },
+  "routing" : {
+    "balancers" : [
+      {
+        "selector" : [
+          "proxy-"
+        ],
+        "strategy" : {
+          "type" : "leastPing"
+        },
+        "tag" : "balancer"
+      }
+    ],
+    "domainStrategy" : "AsIs",
+    "rules" : [
+      {
+        "inboundTag" : [
+          "socks-direct"
+        ],
+        "outboundTag" : "direct",
+        "type" : "field"
+      },
+      {
+        "balancerTag" : "balancer",
+        "inboundTag" : [
+          "socks-in",
+          "http"
+        ],
+        "type" : "field"
+      }
+    ]
+  }
+}
